@@ -1,9 +1,7 @@
 import torch.nn as nn
 from mlbench_core.dataset.translation.pytorch import config
-from mlbench_core.models.pytorch.translation import (
-    ResidualRecurrentEncoder,
-    ResidualRecurrentDecoder,
-)
+from mlbench_core.models.pytorch.translation.decoder import ResidualRecurrentDecoder
+from mlbench_core.models.pytorch.translation.encoder import ResidualRecurrentEncoder
 from torch.nn.functional import log_softmax
 
 
@@ -106,8 +104,7 @@ class GNMT(Seq2Seq):
             batch_first (bool): if True the model uses (batch,seq,feature)
                 tensors, if false the model uses (seq, batch, feature)
             share_embedding (bool): if True embeddings are shared between
-            encoder
-                and decoder
+                encoder and decoder
         """
 
         super(GNMT, self).__init__(batch_first=batch_first)
