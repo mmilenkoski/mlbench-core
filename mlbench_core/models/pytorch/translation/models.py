@@ -1,7 +1,8 @@
 import torch.nn as nn
-from mlbench_core.dataset.translation.pytorch import config
-from mlbench_core.models.pytorch.translation.decoder import ResidualRecurrentDecoder
-from mlbench_core.models.pytorch.translation.encoder import ResidualRecurrentEncoder
+from mlbench_core.models.pytorch.translation.decoder import \
+    ResidualRecurrentDecoder
+from mlbench_core.models.pytorch.translation.encoder import \
+    ResidualRecurrentEncoder
 from torch.nn.functional import log_softmax
 
 
@@ -84,13 +85,14 @@ class GNMT(Seq2Seq):
     """
 
     def __init__(
-        self,
-        vocab_size,
-        hidden_size=1024,
-        num_layers=4,
-        dropout=0.2,
-        batch_first=False,
-        share_embedding=True,
+            self,
+            vocab_size,
+            padding_idx,
+            hidden_size=1024,
+            num_layers=4,
+            dropout=0.2,
+            batch_first=False,
+            share_embedding=True,
     ):
         """
         Constructor for the GNMT v2 model.
@@ -110,7 +112,8 @@ class GNMT(Seq2Seq):
         super(GNMT, self).__init__(batch_first=batch_first)
 
         if share_embedding:
-            embedder = nn.Embedding(vocab_size, hidden_size, padding_idx=config.PAD)
+            embedder = nn.Embedding(vocab_size, hidden_size,
+                                    padding_idx=padding_idx)
             nn.init.uniform_(embedder.weight.data, -0.1, 0.1)
         else:
             embedder = None
