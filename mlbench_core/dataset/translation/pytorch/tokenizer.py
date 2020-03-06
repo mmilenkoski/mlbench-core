@@ -19,7 +19,21 @@ class WMT14Tokenizer(torchtext.data.Field):
 
         super(WMT14Tokenizer, self).__init__(tokenize=tokenize, **kwargs)
 
-    def build_vocab_from_file(self, vocab_fpath, max_size=None):
+    def pad_vocabulary(self, vocab, pad):
+        """
+        Pads vocabulary to a multiple of 'pad' tokens.
+
+        :param vocab: list with vocabulary
+        :param pad: integer
+        """
+        vocab_size = len(vocab)
+        padded_vocab_size = (vocab_size + pad - 1) // pad * pad
+        for i in range(0, padded_vocab_size - vocab_size):
+            token = f'madeupword{i:04d}'
+            vocab.append(token)
+        assert len(vocab) % pad == 0
+
+    def build_vocab_from_file(self, vocab_fpath, pad, max_size=None):
         """
         Builds The vocabulary from a given filename
         Args:
@@ -31,6 +45,8 @@ class WMT14Tokenizer(torchtext.data.Field):
         with open(vocab_fpath) as vfile:
             for line in vfile:
                 vocab.append([line.strip()])
+
+        self.pad_vocabulary(vocab, pad)
 
         super(WMT14Tokenizer, self).build_vocab(vocab, max_size=max_size)
 
@@ -58,3 +74,7 @@ class WMT14Tokenizer(torchtext.data.Field):
     @property
     def vocab_size(self):
         return len(self.vocab.itos)
+
+    def get_padding_idx(self):
+        vocab = self.vocab.itos
+        return vocab.index("<pad>")
