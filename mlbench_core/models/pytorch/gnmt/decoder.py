@@ -3,8 +3,8 @@ import itertools
 import mlbench_core.dataset.translation.pytorch.config as config
 import torch
 import torch.nn as nn
-from mlbench_core.models.pytorch.translation import BahdanauAttention
-from mlbench_core.models.pytorch.translation.utils import init_lstm_
+from mlbench_core.models.pytorch.gnmt import BahdanauAttention
+from mlbench_core.models.pytorch.gnmt.utils import init_lstm_
 
 
 class RecurrentAttention(nn.Module):

@@ -1,7 +1,7 @@
 import torch.nn as nn
-from mlbench_core.models.pytorch.translation.decoder import \
+from mlbench_core.models.pytorch.gnmt.decoder import \
     ResidualRecurrentDecoder
-from mlbench_core.models.pytorch.translation.encoder import \
+from mlbench_core.models.pytorch.gnmt.encoder import \
     ResidualRecurrentEncoder
 from torch.nn.functional import log_softmax
 

@@ -1,6 +1,6 @@
 import mlbench_core.dataset.translation.pytorch.config as config
 import torch.nn as nn
-from mlbench_core.models.pytorch.translation.utils import init_lstm_
+from mlbench_core.models.pytorch.gnmt.utils import init_lstm_
 from torch.nn.utils.rnn import pack_padded_sequence
 from torch.nn.utils.rnn import pad_packed_sequence
 
